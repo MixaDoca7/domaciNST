@@ -26,19 +26,19 @@ public class HosRepositoryImpl implements HosService {
     }
 
     @Override
-    public void save(Long id, Department department) throws Exception {
+    public void save(Long id) throws Exception {
         Optional<Member> member = repositoryMember.findById(id);
         if(member.isPresent()){
-            Optional<HistoryOfSecretary> historyOfSecretary = repositoryHistoryOfService.findTopByDepartmentOrderById(department);
+            Optional<HistoryOfSecretary> historyOfSecretary = repositoryHistoryOfService.findTopByDepartmentOrderById(member.get().getDepartment());
             if(historyOfSecretary.isPresent()){
                 if(historyOfSecretary.get().getEndtOfPosition().before(new Date())) {
-                    savePom(member.get(), department);
+                    savePom(member.get(), member.get().getDepartment());
                 }else{
                     throw new Exception("Mandat duration is not expired");
                 }
                 return;
             }
-            savePom(member.get(), department);
+            savePom(member.get(), member.get().getDepartment());
             return;
         }
         throw new Exception("Member does not exist");
@@ -49,7 +49,7 @@ public class HosRepositoryImpl implements HosService {
         Optional<Member> member = repositoryMember.findById(id);
         if(member.isPresent()){
             Optional<List<HistoryOfSecretary>> list = repositoryHistoryOfService.findByMember(member.get());
-            return list;
+            if (list.isPresent()) return list;
         }
         throw new Exception("This member has never been head of department");
     }
@@ -66,7 +66,6 @@ public class HosRepositoryImpl implements HosService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(start);
         calendar.add(Calendar.MINUTE, 5);
-        Date end = calendar.getTime();
-        return end;
+        return calendar.getTime();
     }
 }

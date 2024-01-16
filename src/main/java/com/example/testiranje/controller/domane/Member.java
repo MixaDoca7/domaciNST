@@ -26,17 +26,22 @@ public class Member implements Serializable {
     @JoinColumn(name = "scientific_field_id")
     private Scientific_field scientific_field;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
 
     public Member() {
     }
 
-    public Member(Long id, String firstame, String lastname, Academic_title academic_title, Education_title education_title, Scientific_field scientific_field) {
+    public Member(Long id, String firstame, String lastname, Academic_title academic_title, Education_title education_title, Scientific_field scientific_field, Department department) {
         this.id = id;
         this.firstame = firstame;
         this.lastname = lastname;
         this.academic_title = academic_title;
         this.education_title = education_title;
         this.scientific_field = scientific_field;
+        this.department = department;
     }
 
     public Long getId() {
@@ -85,5 +90,13 @@ public class Member implements Serializable {
 
     public void setScientific_field(Scientific_field scientific_field) {
         this.scientific_field = scientific_field;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

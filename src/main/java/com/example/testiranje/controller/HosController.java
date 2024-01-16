@@ -1,7 +1,5 @@
 package com.example.testiranje.controller;
 
-import com.example.testiranje.controller.domane.Department;
-import com.example.testiranje.controller.domane.HistoryOfHeads;
 import com.example.testiranje.controller.domane.HistoryOfSecretary;
 import com.example.testiranje.controller.service.impl.HosRepositoryImpl;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,8 @@ public class HosController {
     }
 
     @PostMapping("/add/{id}")
-    public void save(@PathVariable(name = "id")Long id, @RequestBody Department department) throws Exception {
-        hosRepository.save(id,department);
+    public void save(@PathVariable(name = "id")Long id) throws Exception {
+        hosRepository.save(id);
     }
     @GetMapping("/getAllFor/{id}")
     public ResponseEntity<List<HistoryOfSecretary>> getAll(@PathVariable Long id) throws Exception {

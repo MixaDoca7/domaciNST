@@ -9,9 +9,6 @@ import com.example.testiranje.controller.repository.RepositoryMember;
 import com.example.testiranje.controller.service.AthService;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +30,7 @@ public class AthRepositoryImpl implements AthService {
     public void changeAcademicTitle(Long id, String title) {
         Optional<Member> member = repositoryMember.findById(id);
         if(member.isPresent()){
-            Instant ldt = (LocalDateTime.now()).atZone(ZoneId.systemDefault()).toInstant();
-            Date start = Date.from(ldt);
+            Date start = new Date();
             Optional<AcademicTitleHistory> old = repositoryAth.findByMemberAndEndDateIsNull(member.get());
             old.get().setEndDate(start);
             Optional<Academic_title> at = repositoryAcademicTitle.findByName(title);

@@ -1,9 +1,9 @@
 package com.example.testiranje.controller.dto;
 
 import com.example.testiranje.controller.domane.Academic_title;
+import com.example.testiranje.controller.domane.Department;
 import com.example.testiranje.controller.domane.Education_title;
 import com.example.testiranje.controller.domane.Scientific_field;
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,29 +17,25 @@ public class MemberDto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "Obavezno polje")
-    @Column(name = "firstName")
     private String firstame;
     @NotEmpty(message = "Obavezno polje")
-    @Column(name = "lastName")
     private String lastname;
-
-    @Column(name = "academic_title")
     private Academic_title academic_title;
-    @Column(name = "education_title")
     private Education_title education_title;
-    @Column(name = "scientific_field")
     private Scientific_field scientific_field;
+    private Department department;
 
     public MemberDto() {
     }
 
-    public MemberDto(Long id, String firstame, String lastname, Academic_title academic_title, Education_title education_title, Scientific_field scientific_field) {
+    public MemberDto(Long id, String firstame, String lastname, Academic_title academic_title, Education_title education_title, Scientific_field scientific_field, Department department) {
         this.id = id;
         this.firstame = firstame;
         this.lastname = lastname;
         this.academic_title = academic_title;
         this.education_title = education_title;
         this.scientific_field = scientific_field;
+        this.department = department;
     }
 
     public Long getId() {
@@ -89,4 +85,13 @@ public class MemberDto implements Serializable {
     public void setScientific_field(Scientific_field scientific_field) {
         this.scientific_field = scientific_field;
     }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }
+
