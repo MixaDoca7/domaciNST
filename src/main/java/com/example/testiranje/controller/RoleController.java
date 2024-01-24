@@ -32,4 +32,9 @@ public class RoleController {
     public ResponseEntity<List<Role>> getAll(){
         return new ResponseEntity<>(roleRepository.getAll(),HttpStatus.FOUND);
     }
+
+    @GetMapping("/find{id}")
+    public ResponseEntity<Role> findById(@PathVariable Long id) throws Exception {
+        return new ResponseEntity<>(roleRepository.findById(id),HttpStatus.FOUND);
+    }
 }

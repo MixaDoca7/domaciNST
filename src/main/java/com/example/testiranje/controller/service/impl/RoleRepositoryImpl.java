@@ -35,4 +35,13 @@ public class RoleRepositoryImpl implements RoleService {
     public List<Role> getAll() {
         return repositoryRole.findAll();
     }
+
+    public Role findById(Long id) throws Exception {
+        Optional<Role> role = repositoryRole.findById(id);
+        if(role.isPresent()){
+            return role.get();
+        }else {
+            throw new Exception("Role does not exist");
+        }
+    }
 }
