@@ -5,7 +5,6 @@ import com.example.testiranje.controller.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +35,8 @@ public class SubjectController{
     public void delete(@PathVariable Long id) throws Exception {
         subjectService.delete(id);
     }
-
-    public SubjectDto findById(Long id) throws Exception {
+    @GetMapping("{id}")
+    public SubjectDto findById(@PathVariable Long id) throws Exception {
         return subjectService.findById(id);
     }
 }

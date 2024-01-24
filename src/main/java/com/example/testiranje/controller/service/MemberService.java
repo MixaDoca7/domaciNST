@@ -8,7 +8,7 @@ public interface MemberService {
 
     MemberDto save(MemberDto memberDto);
     List<MemberDto> getAll();
-    void delete(MemberDto memberDto);
+    void delete(Long id) throws Exception;
     MemberDto getById(Long id);
 
 }

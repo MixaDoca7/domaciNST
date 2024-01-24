@@ -6,7 +6,6 @@ import com.example.testiranje.controller.dto.MemberDto;
 import com.example.testiranje.controller.repository.*;
 import com.example.testiranje.controller.service.MemberService;
 import jakarta.transaction.Transactional;
-import org.springframework.data.repository.config.RepositoryConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -56,8 +55,14 @@ public class MemberRepositoryImpl implements MemberService {
     }
 
     @Override
-    public void delete(MemberDto memberDto) {
-
+    public void delete(Long id) throws Exception {
+        Optional<Member> m = repositoryMember.findById(id);
+        if(m.isPresent()){
+            Member member = m.get();
+            repositoryMember.delete(member);
+        }else {
+            throw new Exception("Member does not exist");
+        }
     }
 
     @Override
