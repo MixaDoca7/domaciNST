@@ -7,11 +7,7 @@ import com.example.testiranje.controller.repository.*;
 import com.example.testiranje.controller.service.MemberService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,14 +20,16 @@ public class MemberRepositoryImpl implements MemberService {
     private final RepositoryEducationTitle repositoryEducationTitle;
     private final RepositoryScientificField repositoryScientificField;
     private final RepositoryAth repositoryAth;
+    private final RepositoryDepartment repositoryDepartment;
 
-    public MemberRepositoryImpl(MemberConverter memberConverter, RepositoryMember repositoryMember, RepositoryAcademicTitle repositoryAcademicTitle, RepositoryEducationTitle repositoryEducationTitle, RepositoryScientificField repositoryScientificField, RepositoryAth repositoryAth) {
+    public MemberRepositoryImpl(MemberConverter memberConverter, RepositoryMember repositoryMember, RepositoryAcademicTitle repositoryAcademicTitle, RepositoryEducationTitle repositoryEducationTitle, RepositoryScientificField repositoryScientificField, RepositoryAth repositoryAth, RepositoryDepartment repositoryDepartment) {
         this.memberConverter = memberConverter;
         this.repositoryMember = repositoryMember;
         this.repositoryAcademicTitle = repositoryAcademicTitle;
         this.repositoryEducationTitle = repositoryEducationTitle;
         this.repositoryScientificField = repositoryScientificField;
         this.repositoryAth = repositoryAth;
+        this.repositoryDepartment = repositoryDepartment;
     }
 
     @Override
@@ -42,11 +40,24 @@ public class MemberRepositoryImpl implements MemberService {
         verificationET(member);
         verificationSF(member);
         repositoryMember.save(member);
-        Instant ldt = (LocalDateTime.now()).atZone(ZoneId.systemDefault()).toInstant();
-        Date start = Date.from(ldt);
+        LocalDate start = LocalDate.now();
         AcademicTitleHistory ath = new AcademicTitleHistory(-1l,member,start,null,member.getAcademic_title(),member.getScientific_field());
         repositoryAth.save(ath);
         return memberDto;
+    }
+    @Override
+    public MemberDto update(Long id, MemberDto memberDto) throws Exception {
+        Member member = memberConverter.toEntity(memberDto);
+        if(repositoryEducationTitle.findById(member.getEducation_title().getId()).isPresent()
+        && repositoryAcademicTitle.findById(member.getAcademic_title().getId()).isPresent()
+        && repositoryScientificField.findById(member.getScientific_field().getId()).isPresent()
+        && repositoryDepartment.findById(member.getDepartment().getId()).isPresent()){
+            member.setId(id);
+            repositoryMember.save(member);
+            return memberDto;
+        }else {
+            throw new Exception("Invalid input, all parameters must already exits");
+        }
     }
 
     @Override
@@ -66,8 +77,12 @@ public class MemberRepositoryImpl implements MemberService {
     }
 
     @Override
-    public MemberDto getById(Long id) {
-        return null;
+    public MemberDto getById(Long id) throws Exception {
+        Optional<Member> m = repositoryMember.findById(id);
+        if(m.isPresent()){
+            return memberConverter.toDto(m.get());
+        }
+        throw new Exception("Member does not exist");
     }
 
     private void verificationAT(Member member){

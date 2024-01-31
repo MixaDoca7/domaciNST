@@ -55,5 +55,9 @@ public class DepartmentController {
         return departmentService.delete(id);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<DepartmentDto> update(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) throws Exception {
+        return new ResponseEntity<>(departmentService.update(id,departmentDto),HttpStatus.OK);
+    }
 
 }

@@ -1,7 +1,6 @@
 package com.example.testiranje.controller.service.impl;
 
 
-import com.example.testiranje.controller.converter.DtoEntityConverter;
 import com.example.testiranje.controller.converter.impl.DepartmentConverter;
 import com.example.testiranje.controller.domane.Department;
 import com.example.testiranje.controller.dto.DepartmentDto;
@@ -54,5 +53,15 @@ public class DepartmentRepositoryImpl implements DepartmentService {
             return dept.get();
         }
         return null;
+    }
+
+    @Override
+    public DepartmentDto update(Long id, DepartmentDto departmentDto) throws Exception {
+        Optional<Department> dept = repositoryDepartment.findById(id);
+        if(dept.isPresent()){
+            repositoryDepartment.save(departmentConverter.toEntity(departmentDto));
+            return departmentDto;
+        }
+        throw new Exception("This department does not exist");
     }
 }

@@ -26,6 +26,15 @@ public class MemberController {
             memberService.delete(id);
             return new ResponseEntity<>("Member is removed",HttpStatus.GONE);
     }
+    @GetMapping("{id}")
+    public ResponseEntity<MemberDto> getMember(@PathVariable Long id) throws Exception {
+        return new ResponseEntity<>(memberService.getById(id), HttpStatus.FOUND);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<MemberDto> update(@PathVariable Long id, @RequestBody MemberDto memberDto) throws Exception{
+        return new ResponseEntity<>(memberService.update(id,memberDto),HttpStatus.OK);
+    }
 
 
 }

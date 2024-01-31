@@ -55,4 +55,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         return null;
     }
+
+    @Override
+    public DepartmentDto update(Long id, DepartmentDto departmentDto) throws Exception {
+        return null;
+    }
 }

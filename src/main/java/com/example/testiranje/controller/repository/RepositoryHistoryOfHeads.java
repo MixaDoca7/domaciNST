@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface RepositoryHistoryOfHeads extends JpaRepository<HistoryOfHeads, Long> {
 
-    Optional<HistoryOfHeads> findTopByDepartmentOrderById(Department department);
+    Optional<HistoryOfHeads> findTopByDepartmentOrderByEndtOfPositionDesc(Department department);
+    HistoryOfHeads findTopByDepartmentOrderByEndtOfPosition(Department department);
     Optional<List<HistoryOfHeads>> findByMember(Member member);
+    Optional<List<HistoryOfHeads>> findByDepartment(Department department);
 }

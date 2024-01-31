@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tbl_subject")
+@Table(name = "subject")
 public class Subject implements Serializable {
 
     @Id

@@ -5,15 +5,15 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tbl_member")
+@Table(name = "member")
 public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstame;
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastname;
     @ManyToOne
     @JoinColumn(name = "academic_title_id")

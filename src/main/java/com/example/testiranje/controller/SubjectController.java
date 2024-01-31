@@ -39,4 +39,9 @@ public class SubjectController{
     public SubjectDto findById(@PathVariable Long id) throws Exception {
         return subjectService.findById(id);
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<SubjectDto> update(@PathVariable Long id, @RequestBody SubjectDto subjectDto) throws Exception {
+        return new ResponseEntity<>(subjectService.update(id,subjectDto),HttpStatus.OK);
+    }
 }

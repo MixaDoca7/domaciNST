@@ -3,6 +3,7 @@ package com.example.testiranje.controller.service.impl;
 import com.example.testiranje.controller.converter.impl.SubjectConverter;
 import com.example.testiranje.controller.domane.Department;
 import com.example.testiranje.controller.domane.Subject;
+import com.example.testiranje.controller.dto.DepartmentDto;
 import com.example.testiranje.controller.dto.SubjectDto;
 import com.example.testiranje.controller.repository.RepositoryDepartment;
 import com.example.testiranje.controller.repository.RepositorySubject;
@@ -67,5 +68,14 @@ public class SubjectRepositoryImpl implements SubjectService {
         else{
             throw new Exception("Subject do not exist");
         }
+    }
+    @Override
+    public SubjectDto update(Long id, SubjectDto subjectDto) throws Exception {
+        Optional<Subject> sub = repositorySubject.findById(id);
+        if(sub.isPresent()){
+            repositorySubject.save(subjectConverter.toEntity(subjectDto));
+            return subjectDto;
+        }
+        throw new Exception("This subject does not exist");
     }
 }

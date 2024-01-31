@@ -3,21 +3,22 @@ package com.example.testiranje.controller.domane;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table(name = "tbl_history_of_heads")
+@Table(name = "head_history")
 public class HistoryOfHeads implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "startOfPosition")
-    private Date startOfPosition;
+    @Column(name = "start_date")
+    private LocalDate startOfPosition;
 
-    @Column(name = "endOfPosition")
-    private Date endtOfPosition;
+    @Column(name = "end_date")
+    private LocalDate endtOfPosition;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -34,7 +35,7 @@ public class HistoryOfHeads implements Serializable {
     public HistoryOfHeads() {
     }
 
-    public HistoryOfHeads(Long id, Date startOfPosition, Date endtOfPosition, Member member, Role role, Department department) {
+    public HistoryOfHeads(Long id, LocalDate startOfPosition, LocalDate endtOfPosition, Member member, Role role, Department department) {
         this.id = id;
         this.startOfPosition = startOfPosition;
         this.endtOfPosition = endtOfPosition;
@@ -51,19 +52,19 @@ public class HistoryOfHeads implements Serializable {
         this.id = id;
     }
 
-    public Date getStartOfPosition() {
+    public LocalDate getStartOfPosition() {
         return startOfPosition;
     }
 
-    public void setStartOfPosition(Date startOfPosition) {
+    public void setStartOfPosition(LocalDate startOfPosition) {
         this.startOfPosition = startOfPosition;
     }
 
-    public Date getEndtOfPosition() {
+    public LocalDate getEndtOfPosition() {
         return endtOfPosition;
     }
 
-    public void setEndtOfPosition(Date endtOfPosition) {
+    public void setEndtOfPosition(LocalDate endtOfPosition) {
         this.endtOfPosition = endtOfPosition;
     }
 

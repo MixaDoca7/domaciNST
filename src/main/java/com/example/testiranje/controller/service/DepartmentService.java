@@ -11,5 +11,6 @@ public interface DepartmentService {
     List<Department> getAll();
     String delete(Long id);
     Department findById(Long id);
+    DepartmentDto update(Long id, DepartmentDto departmentDto)throws Exception;
 
 }

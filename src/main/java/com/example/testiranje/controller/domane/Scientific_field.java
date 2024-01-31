@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tbl_scientificField")
+@Table(name = "scientificField")
 public class Scientific_field implements Serializable {
 
     @Id
