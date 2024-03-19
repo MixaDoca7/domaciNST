@@ -27,7 +27,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto save(DepartmentDto departmentDto) {
-
         return departmentDto;
     }
 
