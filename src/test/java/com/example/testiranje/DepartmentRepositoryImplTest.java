@@ -101,13 +101,13 @@ public class DepartmentRepositoryImplTest {
         Department department = new Department(id, "Department1","Dept1");
 
         // Mock the behavior of findById() method
-        when(departmentRepository.findById(id)).thenReturn(department);
+        when(repositoryDepartment.findById(id)).thenReturn(Optional.of(department));
 
         // Call the method under test
         String result = departmentRepository.delete(id);
 
         // Verify that findById() and delete() methods are called with correct arguments and just once
-        verify(departmentRepository, times(1)).findById(id);
+        verify(repositoryDepartment, times(1)).findById(id);
         verify(repositoryDepartment,times(1)).delete(department);
 
         // Verify the result message
