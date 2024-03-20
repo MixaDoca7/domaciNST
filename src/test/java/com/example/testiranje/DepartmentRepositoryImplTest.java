@@ -76,8 +76,8 @@ public class DepartmentRepositoryImplTest {
     public void testGetAll() {
         // Create a list of departments for testing
         List<Department> mockDepartments = new ArrayList<>();
-        mockDepartments.add(new Department(1l, "Department1","Dept1"));
-        mockDepartments.add(new Department(2l,"Department2", "Dept2"));
+        mockDepartments.add(new Department(1L, "Department1","Dept1"));
+        mockDepartments.add(new Department(2L,"Department2", "Dept2"));
 
         // Mock the behavior of the repository method
         when(repositoryDepartment.findAll()).thenReturn(mockDepartments);
