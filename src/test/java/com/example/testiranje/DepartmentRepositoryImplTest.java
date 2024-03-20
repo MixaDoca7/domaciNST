@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,4 +72,87 @@ public class DepartmentRepositoryImplTest {
         verify(repositoryDepartment, never()).save(any(Department.class));
         verify(departmentConverter, never()).toDto(any(Department.class));
     }
+    @Test
+    public void testGetAll() {
+        // Create a list of departments for testing
+        List<Department> mockDepartments = new ArrayList<>();
+        mockDepartments.add(new Department(1l, "Department1","Dept1"));
+        mockDepartments.add(new Department(2l,"Department2", "Dept2"));
+
+        // Mock the behavior of the repository method
+        when(repositoryDepartment.findAll()).thenReturn(mockDepartments);
+
+        // Call the method under test
+        List<Department> result = departmentRepository.getAll();
+
+        // Verify that the result matches the mocked data
+        assertEquals(mockDepartments.size(), result.size());
+        for (int i = 0; i < mockDepartments.size(); i++) {
+            assertEquals(mockDepartments.get(i), result.get(i));
+        }
+        // Verify that findAll() method is called just once
+        verify(repositoryDepartment, times(1)).findAll();
+    }
+
+    @Test
+    public void testDelete() {
+        // Mocking data
+        Long id = 1L;
+        Department department = new Department(id, "Department1","Dept1");
+
+        // Mock the behavior of findById() method
+        when(departmentRepository.findById(id)).thenReturn(department);
+
+        // Call the method under test
+        String result = departmentRepository.delete(id);
+
+        // Verify that findById() and delete() methods are called with correct arguments and just once
+        verify(departmentRepository, times(1)).findById(id);
+        verify(repositoryDepartment,times(1)).delete(department);
+
+        // Verify the result message
+        assertEquals("You deleted department with id: " + id, result);
+    }
+
+    @Test
+    public void testFindById_ExistingId() {
+        // Mocking data
+        Long id = 1L;
+        Department department = new Department(id, "Department1","Dept1");
+
+        // Mock the behavior of findById() method
+        when(repositoryDepartment.findById(id)).thenReturn(Optional.of(department));
+
+        // Call the method under test
+        Department result = departmentRepository.findById(id);
+
+        // Verify that findById() is called with correct argument
+        // and the result is not null and matches the mocked department
+        assertNotNull(result);
+        assertEquals(department, result);
+
+        //Verify that findById() is called only once and with right arguments
+        verify(repositoryDepartment,times(1)).findById(id);
+    }
+
+    @Test
+    public void testFindById_NonExistingId() {
+        // Mocking data
+        Long id = 1L;
+
+        // Mock the behavior of findById() method
+        when(repositoryDepartment.findById(id)).thenReturn(Optional.empty());
+
+        // Call the method under test
+        Department result = departmentRepository.findById(id);
+
+        // Verify that findById() is called with correct argument
+        // and the result is null since the department doesn't exist
+        assertEquals(null, result);
+
+        //Verify that findById() is called only once and with right arguments
+        verify(repositoryDepartment,times(1)).findById(id);
+
+    }
+
 }
