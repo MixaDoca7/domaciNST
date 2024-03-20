@@ -48,6 +48,7 @@ public class DepartmentRepositoryImplTest {
         // Assert
         assertNotNull(savedDto);
         assertEquals(departmentDto.getName(), savedDto.getName());
+        assertEquals(departmentDto.getShort_name(), savedDto.getShort_name());
         verify(repositoryDepartment, times(1)).findByName(departmentDto.getName());
         verify(departmentConverter, times(1)).toEntity(departmentDto);
         verify(repositoryDepartment, times(1)).save(any(Department.class));
