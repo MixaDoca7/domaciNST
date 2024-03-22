@@ -36,8 +36,8 @@ public class HosController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody HistoryOfHeads hoh) throws Exception {
-        hosRepository.update(id,hoh);
+    public ResponseEntity<String> update(@PathVariable Long id, @RequestBody HistoryOfSecretary hos) throws Exception {
+        hosRepository.update(id,hos);
         return new ResponseEntity<>("Successfully updated",HttpStatus.OK);
     }
 

@@ -79,15 +79,15 @@ public class HosRepositoryImpl implements HosService {
     }
 
     @Override
-    public void update(Long id,HistoryOfHeads hoh) throws Exception{
+    public void update(Long id,HistoryOfSecretary hos) throws Exception{
         Optional<HistoryOfSecretary> s = repositoryHistoryOfSecretary.findById(id);
         if(s.isPresent()){
-            if(hoh.getStartOfPosition().isBefore(hoh.getEndtOfPosition())){
+            if(hos.getStartOfPosition().isBefore(hos.getEndtOfPosition())){
                 HistoryOfSecretary update = s.get();
                 update.setId(id);
-                update.setStartOfPosition(hoh.getStartOfPosition());
-                update.setEndtOfPosition(hoh.getEndtOfPosition());
-                Optional<Member> m = repositoryMember.findById(hoh.getMember().getId());
+                update.setStartOfPosition(hos.getStartOfPosition());
+                update.setEndtOfPosition(hos.getEndtOfPosition());
+                Optional<Member> m = repositoryMember.findById(hos.getMember().getId());
                 if(m.isPresent()) {
                     update.setMember(m.get());
                     update.setDepartment(m.get().getDepartment());

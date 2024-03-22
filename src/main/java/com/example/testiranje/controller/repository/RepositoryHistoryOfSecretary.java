@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface RepositoryHistoryOfSecretary extends JpaRepository<HistoryOfSecretary,Long> {
 
-    Optional<HistoryOfSecretary> findTopByDepartmentOrderById(Department department);
     Optional<List<HistoryOfSecretary>> findByMember(Member member);
 
     Optional<HistoryOfSecretary> findTopByDepartmentOrderByEndtOfPositionDesc(Department department);
