@@ -1,10 +1,9 @@
-package com.example.testiranje;
+package com.example.testiranje.controller.service.impl;
 
 import com.example.testiranje.controller.converter.impl.DepartmentConverter;
 import com.example.testiranje.controller.domane.Department;
 import com.example.testiranje.controller.dto.DepartmentDto;
 import com.example.testiranje.controller.repository.RepositoryDepartment;
-import com.example.testiranje.controller.service.impl.DepartmentRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
